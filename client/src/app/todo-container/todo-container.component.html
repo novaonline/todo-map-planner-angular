@@ -1,0 +1,10 @@
+<div>
+  <div *ngIf="todos.length > 0; else renderEmptyTodos">
+    <app-todo-item (click)="selectTodo(todo)" *ngFor="let todo of todos" [removeHandler]="removeFromList.bind(this)" [todo]="todo" [class.selected]="todo === selectedTodo">
+    </app-todo-item>
+  </div>
+  <ng-template #renderEmptyTodos>
+    <div>No todo's</div>
+  </ng-template>
+  <button (click)="addTodo()">Add Todo</button>
+</div>

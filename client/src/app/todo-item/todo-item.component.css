@@ -1,0 +1,10 @@
+.btn {
+  cursor: pointer;
+}
+.btn.btn-simple{
+  text-decoration: underline;
+}
+
+.btn.edit {
+  color: #0000EE;
+}

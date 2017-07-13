@@ -1,0 +1,14 @@
+<div *ngIf="todo.editMode; else readOnlyMode">
+  <label>Name: </label>
+  <input [(ngModel)]="todo.name" placeholder="name" />
+  <button (click)="saveTodo()">Save</button>
+  <button (click)="handleCancelClick()">Cancel</button>
+  <button (click)="deleteItem()">Delete</button>
+</div>
+<ng-template #readOnlyMode>
+  <p>
+    <span><input (click)="toggleCheck()" type="checkbox" [checked]="todo.completed"></span>
+    <span>{{todo.name}}</span>
+    <span (click)="toggleEditMode()" class="btn btn-simple edit" role="button"><small>edit</small></span>
+  </p>
+</ng-template>
