@@ -1,3 +1,22 @@
-app-todo-item.selected {
+
+.btn {
+  cursor: pointer;
+}
+.btn.btn-simple{
+  text-decoration: underline;
+}
+
+.btn.edit {
+  color: #0000EE;
+}
+
+div.item.selected {
   font-weight: bold;
+}
+
+div.item .edit {
+  display: none;
+}
+div.item.selected .edit {
+  display: inline-block;
 }

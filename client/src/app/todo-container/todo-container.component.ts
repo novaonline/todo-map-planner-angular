@@ -14,7 +14,7 @@ export class TodoContainerComponent implements OnInit {
     this.todos = [];
     this.selectedTodo = null;
   }
-  ngOnInit() : void {
+  ngOnInit(): void {
     this.todoService.getAll()
       .then(todos => {
         this.todos = todos;
@@ -25,15 +25,45 @@ export class TodoContainerComponent implements OnInit {
     this.todos.push(newTodo);
     this.selectedTodo = newTodo;
   }
-  selectTodo(todo: Todo) : void {
+  selectTodo(todo: Todo): void {
     this.selectedTodo = todo;
   }
-  removeFromList(id: string) : void {
+  removeFromList(id: string): void {
     this.todoService.delete(id).then(result => {
-      this.todos = this.todos.filter( item => item.id !== id)
+      this.todos = this.todos.filter(item => item.id !== id)
     })
   }
   deselect(): void {
     this.selectedTodo = null;
+  }
+  // todo
+  saveTodo(todo) {
+    todo.editMode = false;
+    this.todoService.save(todo).then(model => {
+      todo = model;
+    });
+  }
+  toggleEditMode(todo) {
+    todo.editMode = !todo.editMode;
+  }
+  toggleCheck(todo) {
+    todo.completed = !todo.completed;
+    this.todoService.save(todo).then(model => {
+     todo = model;
+    });
+  }
+  deleteItem(todo) {
+    this.removeFromList(todo.id);
+  }
+  handleCancelClick(todo) {
+    this.toggleEditMode(todo);
+    if (todo.unsaved) {
+      todo.id = null;
+      this.deleteItem(todo);
+    } else {
+      this.todoService.get(todo.id).then(item => {
+        todo = item;
+      })
+    }
   }
 }

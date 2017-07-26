@@ -1,7 +1,22 @@
 <div>
   <div *ngIf="todos.length > 0; else renderEmptyTodos">
-    <app-todo-item (click)="selectTodo(todo)" *ngFor="let todo of todos" [removeHandler]="removeFromList.bind(this)" [todo]="todo" [class.selected]="todo === selectedTodo">
-    </app-todo-item>
+    <div class='item' (click)="selectTodo(todo)" *ngFor="let todo of todos"
+      [class.selected]="todo === selectedTodo">
+      <div *ngIf="todo.editMode; else readOnlyMode">
+        <label>Name: </label>
+        <input [(ngModel)]="todo.name" placeholder="name" />
+        <button (click)="saveTodo(todo)">Save</button>
+        <button (click)="handleCancelClick(todo)">Cancel</button>
+        <button (click)="deleteItem(todo)">Delete</button>
+      </div>
+      <ng-template #readOnlyMode>
+        <p>
+          <span><input (click)="toggleCheck(todo)" type="checkbox" [checked]="todo.completed"></span>
+          <span>{{todo.name}}</span>
+          <span (click)="toggleEditMode(todo)" class="btn btn-simple edit" role="button"><small>edit</small></span>
+        </p>
+      </ng-template>
+    </div>
   </div>
   <ng-template #renderEmptyTodos>
     <div>No todo's</div>
