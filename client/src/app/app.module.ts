@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TodoContainerComponent } from './components/todo-container/todo-container.component';
@@ -17,8 +17,10 @@ import { AgmCoreModule } from '@agm/core';
     BrowserModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD_XFb9vJZZeeHL5gTrQybgEX1aglU69OY'
+      apiKey: 'AIzaSyD_XFb9vJZZeeHL5gTrQybgEX1aglU69OY',
+      libraries: ['places'],
     }),
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

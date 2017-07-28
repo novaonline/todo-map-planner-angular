@@ -7,3 +7,8 @@ agm-map.loading {
   height: 0;
   width: 0;
 }
+
+
+input.search{
+  width:100%;
+}

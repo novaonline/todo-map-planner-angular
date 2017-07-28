@@ -1,4 +1,7 @@
-<agm-map [usePanning]="true" [latitude]="lat" [longitude]="lng" [class.loading]="loaded === false" (mapClick)="addMarker($event)">
+<input id="search" class="search" #search [formControl]="searchControl" placeholder="search for an address" autocorrect="off" autocapitalize="off"
+  spellcheck="off" type="text" />
+<agm-map id="map" [usePanning]="true" [latitude]="lat" [longitude]="lng" [zoom]="z" [fitBounds]="fitBounds" (boundsChange)="boundsChanged($event)"
+  [class.loading]="loaded === false" (mapClick)="addMarker($event)">
   <agm-marker *ngFor="let todo of todos" (markerClick)="clickedMarker(todo)" [latitude]="todo.coords ? todo.coords.lat : ''"
     [longitude]="todo.coords ? todo.coords.lng : ''">
     <!--window info  -->
