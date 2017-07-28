@@ -1,0 +1,81 @@
+.btn {
+  cursor: pointer;
+}
+.btn.btn-simple{
+  text-decoration: underline;
+}
+.btn.btn-simple.icon{
+  text-decoration: none;
+}
+.btn.edit {
+  color: #0000EE;
+}
+
+div.item.selected {
+  font-weight: bold;
+}
+
+div.item [class*="action items"] {
+  display: none;
+}
+div.item.selected [class*="action items"] {
+  display: inline-block;
+}
+.todo.column .item{
+  padding: 5px 0 ;
+}
+/* Quick Flex box Grid System  */
+.row{
+  display: flex;
+  flex-direction: column-reverse;
+}
+.todo.column {
+  flex-basis: 100%;
+}
+.map.column{
+  flex-basis: 100%;
+  height: 300px;
+}
+.flex {
+  display: flex;
+}
+.flex[class*="reverse when tight"] {
+  flex-direction: column-reverse;
+}
+[class*="scroll on overflow"] {
+  overflow-y: scroll;
+}
+/* when sm  */
+@media screen and (min-width: 35.5em) {
+
+}
+
+/* when md */
+@media screen and (min-width: 48em) {
+
+}
+
+/* when lg  */
+@media screen and (min-width: 64em) {
+  .row {
+    flex-direction: row;
+  }
+  .map.column {
+    flex-basis: 80%;
+    height: 70vh;
+  }
+  .todo.column {
+    flex-basis: 20%;
+    height: 70vh;
+  }
+  .flex[class*="normal when loose"] {
+    flex-direction: column;
+  }
+
+}
+
+/* when xl  */
+@media screen and (min-width: 80em) {
+
+}
+/* End of Quick Flex box Grid System */

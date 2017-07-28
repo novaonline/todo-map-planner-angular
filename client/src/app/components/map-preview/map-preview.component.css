@@ -1,0 +1,9 @@
+agm-map {
+  height: 100%;
+  width: 100%;
+}
+
+agm-map.loading {
+  height: 0;
+  width: 0;
+}

@@ -1,6 +1,6 @@
-import { WindowStorage, KEYS } from './../utilities/windowStorage';
+import { WindowStorage, KEYS } from '../utilities/windowStorage';
 import { ICrudActions } from './ICrudActions';
-import { Todo } from './../models/todo';
+import { Todo } from '../models/todo';
 import { Injectable } from '@angular/core';
 @Injectable()
 
@@ -52,5 +52,11 @@ export class TodoService implements ICrudActions<Todo> {
   }
   clear(): Promise<any> {
     return Promise.resolve(this.windowStorage.clear());
+  }
+  stamp (allModels: Todo[]) : Promise<Todo[]> {
+    return new Promise(resolve => {
+      this.windowStorage.set(allModels);
+      resolve(this.getAll());
+    });
   }
 }
