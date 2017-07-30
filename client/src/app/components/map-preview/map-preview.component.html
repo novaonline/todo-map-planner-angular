@@ -1,6 +1,6 @@
 <input id="search" class="search" #search [formControl]="searchControl" placeholder="search for an address" autocorrect="off" autocapitalize="off"
   spellcheck="off" type="text" />
-<agm-map id="map" [usePanning]="true" [latitude]="lat" [longitude]="lng" [zoom]="z" [fitBounds]="fitBounds" (boundsChange)="boundsChanged($event)"
+<agm-map id="map" [usePanning]="true" [latitude]="lat" [longitude]="lng" [zoom]="z" [fitBounds]="fitBounds"
   [class.loading]="loaded === false" (mapClick)="addMarker($event)">
   <!-- need to make markers draggable when selected  -->
   <agm-marker *ngFor="let todo of todos" (markerClick)="clickedMarker(todo)" [latitude]="todo.coords ? todo.coords.lat : ''"
