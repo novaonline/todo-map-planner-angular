@@ -1,3 +1,4 @@
+import { NavigationDirective } from './../../directives/navigation/navigation.directive';
 import { MapsAPILoader, LatLngBoundsLiteral, LatLngBounds } from '@agm/core';
 import { TodoService } from './../../services/todo.service';
 import { Todo } from './../../models/todo';
@@ -58,8 +59,9 @@ export class MapPreviewComponent implements OnInit {
     this.searchControl = new FormControl();
   }
 
-  ngOnInit() {
+  @ViewChild(NavigationDirective) navDirective: NavigationDirective;
 
+  ngOnInit() {
     this.locationService.getCurrentLocation().then(coords => {
       this.lat = coords.lat;
       this.lng = coords.lng;
@@ -81,17 +83,18 @@ export class MapPreviewComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-          //this.fitBounds = new google.maps.LatLngBounds(place.geometry.viewport.getSouthWest(), place.geometry.viewport.getNorthEast());
           this.lat = place.geometry.location.lat();
           this.lng = place.geometry.location.lng();
           this.z = this.guessZoom(place.geometry.viewport)
         })
       })
     });
-
   }
 
   addMarker(e) {
+    if(this.selectedTodo === null ){
+      return;
+    }
     const selectedIdIndex = this.todos.findIndex(t => t.id === this.selectedTodo.id);
     this.todos[selectedIdIndex].coords = e.coords
     // save to service
@@ -110,7 +113,7 @@ export class MapPreviewComponent implements OnInit {
   boundsChanged(e) {
     console.log('bounds changed');
   }
-  guessZoom(viewport: google.maps.LatLngBounds) {
+  private guessZoom(viewport: google.maps.LatLngBounds) {
     // https://stackoverflow.com/questions/294250/how-do-i-retrieve-an-html-elements-actual-width-and-height
     var GLOBE_WIDTH = 256; // a constant in Google's map projection
     console.log(viewport);
@@ -124,4 +127,9 @@ export class MapPreviewComponent implements OnInit {
     var zoom = Math.floor(Math.log(1200 * 360 / angle / GLOBE_WIDTH) / Math.LN2)
     return zoom;
   }
+
+  public calcRoute() {
+    this.navDirective.getRoute();
+  }
+
 }

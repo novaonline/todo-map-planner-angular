@@ -2,8 +2,11 @@
   spellcheck="off" type="text" />
 <agm-map id="map" [usePanning]="true" [latitude]="lat" [longitude]="lng" [zoom]="z" [fitBounds]="fitBounds" (boundsChange)="boundsChanged($event)"
   [class.loading]="loaded === false" (mapClick)="addMarker($event)">
+  <!-- need to make markers draggable when selected  -->
   <agm-marker *ngFor="let todo of todos" (markerClick)="clickedMarker(todo)" [latitude]="todo.coords ? todo.coords.lat : ''"
     [longitude]="todo.coords ? todo.coords.lng : ''">
     <!--window info  -->
   </agm-marker>
+  <map-navigation [todos]="todos" [userLocationLat]="lat" [userLocationLng]="lng"></map-navigation>
 </agm-map>
+<button type="" (click)="calcRoute()">Calc Route</button>
