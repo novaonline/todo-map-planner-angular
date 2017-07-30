@@ -8,18 +8,40 @@ import { Todo } from "../../models/todo";
   providers: [TodoService],
 })
 export class TodoContainerComponent implements OnInit {
+  /**
+   * A list of the tasks a user wishes to complete
+   *
+   * @type {Todo[]}
+   * @memberof TodoContainerComponent
+   */
   todos: Todo[];
+
+  /**
+   * The selected todo a user wishes to modify
+   *
+   * @type {Todo}
+   * @memberof TodoContainerComponent
+   */
   selectedTodo: Todo;
+
   constructor(private todoService: TodoService) {
     this.todos = [];
     this.selectedTodo = null;
   }
+
   ngOnInit(): void {
     this.todoService.getAll()
       .then(todos => {
         this.todos = todos;
       })
   }
+
+  /**
+   * adding a todo to the list
+   *
+   * @returns {void}
+   * @memberof TodoContainerComponent
+   */
   addTodo(): void {
     // pre condition
     if (this.todos.some(x => x.unsaved)) {
@@ -30,6 +52,13 @@ export class TodoContainerComponent implements OnInit {
     this.todos.push(newTodo);
     this.selectedTodo = newTodo;
   }
+
+  /**
+   * selecting a todo from list
+   *
+   * @param {Todo} todo
+   * @memberof TodoContainerComponent
+   */
   selectTodo(todo: Todo): void {
     const prevSelected = this.selectedTodo;
     this.selectedTodo = todo;
@@ -38,11 +67,27 @@ export class TodoContainerComponent implements OnInit {
       this.handleCancelClick(t, prevSelected);
     })
   }
+
+  /**
+   * removing a todo from list
+   *
+   * @param {string} id
+   * @memberof TodoContainerComponent
+   */
   removeFromList(id: string): void {
     this.todoService.delete(id).then(result => {
       this.todos = this.todos.filter(item => item.id !== id);
     });
   }
+
+  /**
+   * swaping positions of a todo from the list
+   *
+   * @param {any} todo
+   * @param {any} direction
+   * @returns {void}
+   * @memberof TodoContainerComponent
+   */
   swap(todo, direction): void {
     if (direction === 0 || !todo) {
       return;
@@ -59,28 +104,73 @@ export class TodoContainerComponent implements OnInit {
       })
     }
   }
+
+  /**
+   * deselecting the selected todo
+   *
+   * @memberof TodoContainerComponent
+   */
   deselect(): void {
     this.selectedTodo = null;
   }
-  // todo
+
+  /**
+   * save the unsaved todo in the 'buffer' form control
+   *
+   * @param {any} todo
+   * @memberof TodoContainerComponent
+   */
   saveTodo(todo) {
     todo.editMode = false;
     this.todoService.save(todo).then(model => {
       todo = model;
     });
   }
+
+  /**
+   * toggle which todo is in edit mode
+   * note:
+   * it was originally designed so that multiple todos could be edited at once
+   * but simplified it to just one so that is why edit mode is not structured the same as select mode
+   *
+   * @param {any} todo
+   * @memberof TodoContainerComponent
+   */
   toggleEditMode(todo) {
     todo.editMode = !todo.editMode;
   }
+
+  /**
+   * toggle a todo item as completed or not completed
+   *
+   * @param {any} todo
+   * @memberof TodoContainerComponent
+   */
   toggleCheck(todo) {
     todo.completed = !todo.completed;
     this.todoService.save(todo).then(model => {
       todo = model;
     });
   }
+
+  /**
+   * an alias for 'removeFromList'
+   *
+   * @param {any} todo
+   * @memberof TodoContainerComponent
+   */
   deleteItem(todo) {
     this.removeFromList(todo.id);
   }
+
+  /**
+   * handles the event when a cancel has been initiated by user
+   *
+   * @param {any} todo
+   * @param {any} prevSelected
+   * @returns
+   * @memberof TodoContainerComponent
+   */
   handleCancelClick(todo, prevSelected) {
     if (todo.editMode === false) {
       return;
@@ -106,6 +196,13 @@ export class TodoContainerComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * the actual cancel action
+   *
+   * @param {any} todo
+   * @memberof TodoContainerComponent
+   */
   cancelAction(todo) {
     this.toggleEditMode(todo);
     if (todo.unsaved) {
@@ -118,8 +215,15 @@ export class TodoContainerComponent implements OnInit {
       })
     }
   }
+
+  /**
+   * ensure that the selected todo is one of the todos in the list
+   * this might have been overkill. there's a chance that all I needed to do was to find id in this.todos
+   *
+   * @param {Todo} todo
+   * @memberof TodoContainerComponent
+   */
   syncSelectedTodo(todo: Todo) {
-    // this might have been overkill. there's a chance that all I needed to do was to find id in this.todos
     this.selectedTodo = this.todos.find(x => x.id === todo.id);
   }
 }

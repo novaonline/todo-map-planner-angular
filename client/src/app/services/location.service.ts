@@ -1,11 +1,24 @@
 import { Coords } from '../models/coords';
 import { Injectable } from '@angular/core';
 
+/**
+ * Location service.
+ * Primarily used to get the user's current location
+ *
+ * @export
+ * @class LocationService
+ */
 @Injectable()
 export class LocationService {
 
   constructor() { }
 
+  /**
+   * Returns the user's current location
+   *
+   * @returns {Promise<Coords>}
+   * @memberof LocationService
+   */
   getCurrentLocation(): Promise<Coords> {
     return new Promise((resolve, reject) => {
       const coords = new Coords({});
