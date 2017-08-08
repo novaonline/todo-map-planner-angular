@@ -1,37 +1,37 @@
 <div class="container">
-  <div class="row">
-    <div class="todo column flex reverse when tight normal when loose" *ngIf="todos.length > 0; else renderEmptyTodos">
+  <div class="main">
+    <div class="list column" *ngIf="todos.length > 0; else renderEmptyTodos">
       <div class="scroll on overflow">
         <div class="item" (click)="selectTodo(todo)" *ngFor="let todo of todos" [class.selected]="todo === selectedTodo">
           <div *ngIf="todo.editMode; else readOnlyMode">
-            <label>Name: </label>
-            <input [(ngModel)]="todo.name" placeholder="name" />
-            <button type="submit" (click)="saveTodo(todo)">Save</button>
-            <button (click)="handleCancelClick(todo)">Cancel</button>
-            <button (click)="deleteItem(todo)">Delete</button>
+            <div>
+              <input class="input name" [(ngModel)]="todo.name" placeholder="name" />
+            </div>
+            <div class="btn-group">
+              <button type="submit" (click)="saveTodo(todo)">Save</button>
+              <button (click)="handleCancelClick(todo)">Cancel</button>
+              <button (click)="deleteItem(todo)">Delete</button>
+            </div>
           </div>
           <ng-template #readOnlyMode>
             <div>
-              <span><input (click)="toggleCheck(todo)" type="checkbox" [checked]="todo.completed"></span>
+              <span>
+                <input class="task checkbox" (click)="toggleCheck(todo)" type="checkbox" [checked]="todo.completed">
+              </span>
               <span>{{todo.name}}</span>
+              <span class="text-muted" title="location is empty" *ngIf="!todo.coords">&empty;</span>
               <div class="action items">
                 <span (click)="toggleEditMode(todo)" class="btn btn-simple edit" role="button">
                     <small>edit</small>
                   </span>
-                <span (click)="swap(todo, -1)" class="btn btn-simple icon" role="button">
-                      <small>&uarr;</small>
-                    </span>
-                <span (click)="swap(todo, 1)" class="btn btn-simple icon" role="button">
-                        <small>&darr;</small>
-                      </span>
               </div>
             </div>
           </ng-template>
         </div>
       </div>
-      <div>
-        <button class="add todo" (click)="addTodo()">Add Todo</button>
-      </div>
+    </div>
+    <div>
+      <button class="add todo" (click)="addTodo()">Add Todo</button>
     </div>
     <ng-template #renderEmptyTodos>
       <div>

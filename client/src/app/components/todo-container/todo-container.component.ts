@@ -1,5 +1,7 @@
+import { MapsAPILoader } from '@agm/core';
+import { FormControl } from '@angular/forms';
 import { TodoService } from '../../services/todo.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList, ElementRef, NgZone, Input } from '@angular/core';
 import { Todo } from "../../models/todo";
 @Component({
   selector: 'app-todo-container',
@@ -24,7 +26,9 @@ export class TodoContainerComponent implements OnInit {
    */
   selectedTodo: Todo;
 
-  constructor(private todoService: TodoService) {
+  constructor(private todoService: TodoService,
+    private mapLoader: MapsAPILoader,
+    private ngZone: NgZone, ) {
     this.todos = [];
     this.selectedTodo = null;
   }
@@ -33,8 +37,9 @@ export class TodoContainerComponent implements OnInit {
     this.todoService.getAll()
       .then(todos => {
         this.todos = todos;
-      })
+      });
   }
+
 
   /**
    * adding a todo to the list

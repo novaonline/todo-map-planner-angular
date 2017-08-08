@@ -1,81 +1,108 @@
 .btn {
-  cursor: pointer;
+    cursor: pointer;
 }
-.btn.btn-simple{
-  text-decoration: underline;
+
+.btn.btn-simple {
+    text-decoration: underline;
 }
-.btn.btn-simple.icon{
-  text-decoration: none;
+
+.btn.btn-simple.icon {
+    text-decoration: none;
 }
+
 .btn.edit {
-  color: #0000EE;
+    color: #0000EE;
 }
 
 div.item.selected {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 div.item [class*="action items"] {
-  display: none;
+    display: none;
 }
+
 div.item.selected [class*="action items"] {
-  display: inline-block;
-}
-.todo.column .item{
-  padding: 5px 0 ;
-}
-/* Quick Flex box Grid System  */
-.row{
-  display: flex;
-  flex-direction: column-reverse;
-}
-.todo.column {
-  flex-basis: 100%;
-}
-.map.column{
-  flex-basis: 100%;
-  height: 300px;
-}
-.flex {
-  display: flex;
-}
-.flex[class*="reverse when tight"] {
-  flex-direction: column-reverse;
-}
-[class*="scroll on overflow"] {
-  overflow-y: scroll;
-}
-/* when sm  */
-@media screen and (min-width: 35.5em) {
-
+    display: inline-block;
 }
 
-/* when md */
-@media screen and (min-width: 48em) {
-
+input[class*="task checkbox"]{
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 6px;
+  padding: 0;
 }
 
-/* when lg  */
+.todo.column .item {
+    padding: 5px 0;
+}
+
+.btn-group {
+    margin: 10px 0;
+}
+
+input.input {
+    padding: 8px;
+    margin-top: 10px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%
+}
+
+.text-muted{
+color: #aaa
+}
+
+
+/* Quick css Grid System  */
+
+.main {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-auto-rows: minmax(100px, auto);
+    grid-gap: 10px;
+}
+
+.list {
+    grid-row: 2;
+    grid-column-end: span 4;
+}
+
+.map {
+    grid-row: 1;
+    grid-column-end: span 4;
+}
+
+
+/* when sm or greater  */
+
+@media screen and (min-width: 35.5em) {}
+
+
+/* when md or greater */
+
+@media screen and (min-width: 48em) {}
+
+
+/* when lg or greater  */
+
 @media screen and (min-width: 64em) {
-  .row {
-    flex-direction: row;
-  }
-  .map.column {
-    flex-basis: 80%;
-    height: 70vh;
-  }
-  .todo.column {
-    flex-basis: 20%;
-    height: 70vh;
-  }
-  .flex[class*="normal when loose"] {
-    flex-direction: column;
-  }
-
+    .list {
+        grid-row: 1;
+        grid-column: auto;
+    }
+    .map {
+        grid-row: 1;
+        grid-column: auto;
+    }
 }
 
-/* when xl  */
-@media screen and (min-width: 80em) {
 
-}
+/* when xl or greater  */
+
+@media screen and (min-width: 80em) {}
+
+
 /* End of Quick Flex box Grid System */

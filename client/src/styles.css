@@ -10,3 +10,8 @@
 body{
   font-family: 'Zilla Slab', serif;
 }
+
+
+* {
+  box-sizing: border-box;
+}
