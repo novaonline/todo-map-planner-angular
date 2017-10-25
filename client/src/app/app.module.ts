@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TodoContainerComponent } from './components/todo-container/todo-container.component';
 import { MapPreviewComponent } from './components/map-preview/map-preview.component';
@@ -23,6 +23,9 @@ import { NavigationDirective } from './directives/navigation/navigation.directiv
       libraries: ['places'],
     }),
     ReactiveFormsModule,
+    RouterModule.forRoot(<Routes>[
+      { path: "", component: TodoContainerComponent },
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
